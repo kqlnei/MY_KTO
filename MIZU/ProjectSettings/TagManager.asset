@@ -8,6 +8,11 @@ TagManager:
   - Arm
   - RightArm
   - LeftArm
+  - puddle
+  - Water
+  - Ice
+  - Cloud
+  - Slime
   layers:
   - Default
   - TransparentFX
