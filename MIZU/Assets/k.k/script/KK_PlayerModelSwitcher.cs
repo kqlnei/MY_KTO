@@ -7,7 +7,7 @@ public class KK_PlayerModelSwitcher : MonoBehaviour
     public GameObject solidModel;    // 固体状態のモデル
     public GameObject slimeModel;    // スライム状態のモデル
 
-    private GameObject currentModel; // 現在表示しているモデル
+    public GameObject currentModel; // 現在表示しているモデル
 
     void Start()
     {
