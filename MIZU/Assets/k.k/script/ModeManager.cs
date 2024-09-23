@@ -9,7 +9,7 @@ public class ModeManager : MonoBehaviour
 
     KK_PlayerModelSwitcher playerMode; //呼ぶスクリプトにあだなつける
 
-    public string nowmodelTag;
+    [HideInInspector]  public string nowmodelTag;
     // Start is called before the first frame update
     void Start()
     { 
