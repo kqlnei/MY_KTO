@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealArea : MonoBehaviour
 {
-    private bool Heal = true;
+    [HideInInspector] public bool Heal = false;
 
     private void Update()
     {
@@ -23,13 +23,12 @@ public class HealArea : MonoBehaviour
 
         }
     }
-    void OnTrggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
-        Debug.Log("“–‚½‚Á‚Ä‚È‚¢!");
-        Heal = false;
         if (other.gameObject.tag == "Player")
         {
-           
+            Debug.Log("“–‚½‚Á‚Ä‚È‚¢!");
+            Heal = false;
         }
     }
 }

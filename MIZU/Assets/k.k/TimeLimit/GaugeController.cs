@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GaugeController : MonoBehaviour
@@ -12,15 +13,28 @@ public class GaugeController : MonoBehaviour
     // HP1あたりの幅
     private float _HP1;
 
-    public GameObject modeManager;
+    public GameObject Managerobject;
     ModeManager playerMode;
+    CollisionManager _playerColObj;
+
 
     private bool isDead = false;
 
+    public float water = 1;
+    public float ice =1;
+    public float cloud = 1;
+    public float slime = 1;
+
+    private HealArea _heal;
+    
     void Start()
     {
-        GameObject obj = modeManager;
+        GameObject obj = Managerobject;
         playerMode = obj.GetComponent<ModeManager>(); //付いているスクリプトを取得
+        _playerColObj = obj.GetComponent<CollisionManager>();
+
+        _heal = GetComponent<HealArea>();
+        
     }
     void Awake()
     {
@@ -36,22 +50,22 @@ public class GaugeController : MonoBehaviour
         {
             case "Water":
                 // 攻撃力と体力1あたりの幅の積が実際に体力ゲージから減らす幅
-                damege = _HP1 * atacck;
+                damege = _HP1 * atacck * water;
                 break;
 
             case "Ice":
                 // 攻撃力と体力1あたりの幅の積が実際に体力ゲージから減らす幅
-                damege = _HP1 * atacck*10;
+                damege = _HP1 * atacck * ice;
                 break;
             
             case "Cloud":
                 // 攻撃力と体力1あたりの幅の積が実際に体力ゲージから減らす幅
-                damege = _HP1 * atacck*100;
+                damege = _HP1 * atacck * cloud;
                 break;
 
             case "Slime":
                 // 攻撃力と体力1あたりの幅の積が実際に体力ゲージから減らす幅
-                damege = _HP1 * atacck*0;
+                damege = _HP1 * atacck * slime;
                 break;
         }
 
@@ -62,6 +76,16 @@ public class GaugeController : MonoBehaviour
     {
         if (!isDead) // 死亡していない場合のみ実行
         {
+            foreach (Collider col in _playerColObj.hitCollidersList)
+            {
+                if (col.gameObject.CompareTag("HealSpot"))
+                {
+                    Heal(100f);
+                    break; // 1つでも回復エリアに当たったらループを抜ける
+                }
+            }
+
+            // 回復エリアに当たっていない場合
             BeInjured(0.1f);
             Debug.Log(playerMode.nowmodelTag + "1");
         }
